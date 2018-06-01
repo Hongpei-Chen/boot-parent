@@ -18,4 +18,14 @@ public class IndexController {
         model.addAttribute("account","admin");
         return "/index";
     }
+
+    @GetMapping("list.html")
+    public String list(){
+        return "/list";
+    }
+
+    @GetMapping("form.html")
+    public String form(){
+        return "/form";
+    }
 }
