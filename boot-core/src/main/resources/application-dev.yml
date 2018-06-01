@@ -2,21 +2,21 @@
 spring:
   redis:
     database: 0
-    host: 47.94.138.114
-    password: jeff1005
-    port: 6379
-    pool:
-      max-active: 50
-      max-idle: 8
-      min-idle: 0
-      max-wait: -1
+    host:
+    password:
+    port:
+#    pool:
+#      max-active: 50
+#      max-idle: 8
+#      min-idle: 0
+#      max-wait: -1
     timeout: 0
 
   datasource:
       type: com.zaxxer.hikari.HikariDataSource
-      url: jdbc:mysql://47.94.138.114:3306/boot?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&userSSL=false
-      username: root
-      password: jeff1005
+      url:
+      username:
+      password:
       hikari:
         idle-timeout: 10000
         maximum-pool-size: 10
