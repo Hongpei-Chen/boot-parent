@@ -16,7 +16,7 @@ public class IndexController {
     @GetMapping("index.html")
     public String index(Model model){
         model.addAttribute("account","admin");
-        return "/index";
+        return "/admin/index";
     }
 
     @GetMapping("list.html")

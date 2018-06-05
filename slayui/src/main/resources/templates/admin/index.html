@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>layout 后台大布局 - Layui</title>
+    <link rel="stylesheet" href="/webjars/layui/2.3.0/css/layui.css">
+</head>
+<body layadmin-themealias="dark-blue" class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-header">
+        <div class="layui-logo">layui 后台布局</div>
+        <!-- 头部区域（可配合layui已有的水平导航） -->
+        <ul class="layui-nav layui-layout-left">
+            <li class="layui-nav-item"><a href="">控制台</a></li>
+            <li class="layui-nav-item"><a href="">商品管理</a></li>
+            <li class="layui-nav-item"><a href="">用户</a></li>
+            <li class="layui-nav-item">
+                <a href="javascript:;">其它系统</a>
+                <dl class="layui-nav-child">
+                    <dd><a href="">邮件管理</a></dd>
+                    <dd><a href="">消息管理</a></dd>
+                    <dd><a href="">授权管理</a></dd>
+                </dl>
+            </li>
+        </ul>
+        <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item">
+                <a href="javascript:;">
+                    <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+                    贤心
+                </a>
+                <dl class="layui-nav-child">
+                    <dd><a href="">基本资料</a></dd>
+                    <dd><a href="">安全设置</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item"><a href="">退了</a></li>
+        </ul>
+    </div>
+
+    <div class="layui-side layui-bg-black">
+        <div class="layui-side-scroll">
+            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+            <ul class="layui-nav layui-nav-tree">
+                <li class="layui-nav-item layui-nav-itemed">
+                    <a class="" href="javascript:;">系统管理</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="###" onclick="showAtRight('/sys/config/list.html')">系统配置</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a class="" href="javascript:;">固话管理</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="###" onclick="showAtRight('/sys/config/list.html')">列表一</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a class="" href="javascript:;">所有商品</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="###" onclick="showAtRight('/list.html')">列表一</a></dd>
+                        <dd><a href="###" onclick="showAtRight('/form.html')">表单</a></dd>
+                        <dd><a href="javascript:;">列表三</a></dd>
+                        <dd><a href="">超链接</a></dd>
+                    </dl>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="layui-body">
+        <div class="layadmin-tabsbody-item layui-show">
+            <div id="content">
+                &lt;!&ndash; 内容主体区域 &ndash;&gt;
+                <div style="padding: 15px;">内容主体区域</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-footer">
+        <!-- 底部固定区域 -->
+        © layui.com - 底部固定区域
+    </div>
+</div>
+<script src="/webjars/jquery/3.3.1-1/jquery.js"></script>
+<script src="/webjars/layui/2.3.0/layui.js"></script>
+<script>
+    layui.use('element', function(){
+        var element = layui.element;
+    });
+
+    /**
+     * 解决ajax返回的页面中含有javascript的办法：
+     * 把xmlHttp.responseText中的脚本都抽取出来，不管AJAX加载的HTML包含多少个脚本块，我们对找出来的脚本块都调用eval方法执行它即可
+     */
+    function executeScript(html) {
+
+        var reg = /<script[^>]*>([^\x00]+)$/i;
+        //对整段HTML片段按<\/script>拆分
+        var htmlBlock = html.split("<\/script>");
+        for (var i in htmlBlock) {
+            var blocks;//匹配正则表达式的内容数组，blocks[1]就是真正的一段脚本内容，因为前面reg定义我们用了括号进行了捕获分组
+            if (blocks = htmlBlock[i].match(reg)) {
+                //清除可能存在的注释标记，对于注释结尾-->可以忽略处理，eval一样能正常工作
+                var code = blocks[1].replace(/<!--/, '');
+                try {
+                    eval(code) //执行脚本
+                } catch (e) {
+                    console.info(e);
+                }
+            }
+        }
+    }
+
+    function showAtRight(url) {
+        var xmlHttp;
+
+        if (window.XMLHttpRequest) {
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlHttp=new XMLHttpRequest();    //创建 XMLHttpRequest对象
+        } else {
+            // code for IE6, IE5
+            xmlHttp=new ActiveXObject("Microsoft.XMLHTTP");
+        }
+
+        xmlHttp.onreadystatechange=function() {
+            //onreadystatechange — 当readystate变化时调用后面的方法
+            if (xmlHttp.readyState == 4) {//finished downloading response
+                if (xmlHttp.status == 200) {// 服务器反馈正常
+                    document.getElementById("content").innerHTML=xmlHttp.responseText;    //重设页面中id="content"的div里的内容
+                    executeScript(xmlHttp.responseText);    //执行从服务器返回的页面内容里包含的JavaScript函数
+                } else if (xmlHttp.status == 404){//错误状态处理
+                    alert("出错了☹   （错误代码：404 Not Found），……！");
+                    return;
+                } else if (xmlHttp.status == 403) {
+                    alert("出错了☹   （错误代码：403 Forbidden），……");
+                    return;
+                } else {
+                    alert("出错了☹   （错误代码：" + request.status + "），……");
+                    return;
+                }
+            }
+
+        }
+        //把请求发送到服务器上的指定文件（url指向的文件）进行处理
+        xmlHttp.open("GET", url, true);        //true表示异步处理
+        xmlHttp.send();
+    }
+</script>
+</body>
+</html>

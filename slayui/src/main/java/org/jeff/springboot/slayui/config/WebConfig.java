@@ -16,14 +16,19 @@ import java.util.List;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
-  /*  private static final String[] CLASSPATH_RESOURCE_LOCATIONS = {
-            "classpath:/META-INF/resources/", "classpath:/resources/",
-            "classpath:/static/", "classpath:/public/" };
+    /*  private static final String[] CLASSPATH_RESOURCE_LOCATIONS = {
+              "classpath:/META-INF/resources/", "classpath:/resources/",
+              "classpath:/static/", "classpath:/public/" };
 
+      @Override
+      public void addResourceHandlers(ResourceHandlerRegistry registry) {
+          registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
+      }*/
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
-    }*/
+    }
+
 
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
