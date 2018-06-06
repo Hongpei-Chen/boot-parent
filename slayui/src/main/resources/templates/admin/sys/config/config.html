@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+</head>
+<body>
+
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px;">
+    <legend>系统配置</legend>
+</fieldset>
+
+<div class="layui-tab layui-tab-brief" lay-filter="sysConfig">
+    <ul class="layui-tab-title">
+        <li class="layui-this">免费时长</li>
+        <li>IP限制</li>
+    </ul>
+    <div class="layui-tab-content" style="height: 100px;">
+        <div class="layui-tab-item layui-show">
+            <form class="layui-form" style="width: 90%;padding-top: 20px;">
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">免费时长</label>
+                        <div class="layui-input-inline">
+                            <input type="number" name="freeCallTime" autocomplete="off" class="layui-input" lay-verify="required">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn layui-btn-normal" lay-submit lay-filter="saveTime">立即提交</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="layui-tab-item">
+            <form class="layui-form" style="width: 90%;padding-top: 20px;">
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">是否开启</label>
+                        <div class="layui-input-block">
+                            <input type="checkbox" id="ipsign" name="ipsign" lay-skin="switch" lay-text="开启|关闭">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">区域</label>
+                        <div class="layui-input-block">
+                            <select name="city" lay-verify="areaverify">
+                                <option value=""></option>
+                                <option value="0">北京</option>
+                                <option value="1">上海</option>
+                                <option value="2">广州</option>
+                                <option value="3">深圳</option>
+                                <option value="4">杭州</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn layui-btn-normal" lay-submit lay-filter="ipLimit">立即提交</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    layui.use(['element', 'form'], function(){
+        var $ = layui.jquery
+            ,element = layui.element //Tab的切换功能，切换事件监听等，需要依赖element模块
+            ,form = layui.form;
+
+        form.verify({
+            areaverify: function (value, item) { //value：表单的值、item：表单的DOM对象
+                var ipsign = $('#ipsign').is(':checked');
+                if (ipsign){
+
+                }
+            }
+        });
+
+        //监听信息提交
+        form.on('submit(saveTime)', function(data) {
+            layer.msg(JSON.stringify(data.field));
+            return false;
+        });
+        
+        form.on('submit(ipLimit)',function (data) {
+            layer.msg(JSON.stringify(data.field));
+            return false;
+        });
+
+
+    });
+</script>
+</body>
+</html>

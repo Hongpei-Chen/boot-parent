@@ -9,11 +9,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * <p>Date 2018/6/5 11:32</p>
  */
 @Controller
-@RequestMapping("/sys/config")
+@RequestMapping("/sys")
 public class SystemConfigController {
 
     @GetMapping("/list.html")
     public String list(){
         return "/admin/sys/config/list";
+    }
+
+    @GetMapping("/config.html")
+    public String config(){
+        return "/admin/sys/config/config";
     }
 }

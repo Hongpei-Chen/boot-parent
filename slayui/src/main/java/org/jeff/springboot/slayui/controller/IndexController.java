@@ -28,4 +28,9 @@ public class IndexController {
     public String form(){
         return "/form";
     }
+
+    @GetMapping("/welcome.html")
+    public String welcome(){
+        return "/admin/welcome";
+    }
 }
