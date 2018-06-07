@@ -6,14 +6,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * @author jeff
- * <p>Date 2018/6/5 11:32</p>
+ * <p>Date 2018/6/7 16:30</p>
  */
 @Controller
-@RequestMapping("/sys/config")
-public class SystemConfigController {
+@RequestMapping("/sys/sip")
+public class SipServerController {
 
-    @GetMapping("/config.html")
-    public String config(){
-        return "/admin/sys/config/config";
+    /**
+     * 列表页面
+     * @return {@code /admin/sys/sip/list}
+     */
+    @GetMapping("/sip/list.html")
+    public String sipList(){
+        return "/admin/sys/sip/list";
     }
+
+
+
 }

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head></head>
+<body>
+<div class="layui-fluid">
+    <div class="layui-card">
+        <div class="layui-form layui-card-header layuiadmin-card-header-auto" lay-filter="sip-query-form">
+            <div class="layui-form-item" style="padding-bottom: 20px">
+                <div class="layui-inline">
+                    <label class="layui-form-label">名称</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="id" placeholder="请输入" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">地址</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="username" placeholder="请输入" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-inline">
+                    <button class="layui-btn layuiadmin-btn-useradmin" lay-submit="" lay-filter="query-search">
+                        <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="layui-card-body">
+            <div style="padding-bottom: 10px">
+                <button class="layui-btn layui-btn-primary"><i class="layui-icon"></i>添加</button>
+                <button class="layui-btn layui-btn-danger"><i class="layui-icon"></i>删除</button>
+            </div>
+            <table class="layui-hide" id="test"></table>
+        </div>
+    </div>
+</div>
+<script type="text/html" id="toolbar">
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+<script>
+    layui.use(['table', 'form'], function(){
+        var table = layui.table
+            ,form = layui.form;
+
+        table.render({
+            elem: '#test'
+            ,url:''
+            ,cols: [[
+                {field:'id', width:100, title: 'ID'}
+                ,{field:'name',title: '名称'}
+                ,{field:'url', title: '地址'}
+                ,{field:'port',title: '端口'}
+                ,{field:'protocol',  title: '协议'}
+                ,{field:'createDate',title: '创建时间'}
+                ,{fixed: 'right', title: '操作', minWidth:120, align:'center', toolbar: '#toolbar'}
+            ]]
+            ,page: true
+        });
+
+
+        form.render();
+    });
+</script>
+</body>
+</html>
