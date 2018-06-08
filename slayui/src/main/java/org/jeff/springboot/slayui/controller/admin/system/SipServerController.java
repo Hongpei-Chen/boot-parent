@@ -16,7 +16,7 @@ public class SipServerController {
      * 列表页面
      * @return {@code /admin/sys/sip/list}
      */
-    @GetMapping("/sip/list.html")
+    @GetMapping("/list.html")
     public String sipList(){
         return "/admin/sys/sip/list";
     }
